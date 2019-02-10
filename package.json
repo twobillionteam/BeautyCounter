@@ -1,17 +1,75 @@
 {
-  "name": "beautycounter",
-  "version": "0.0.0",
-  "private": true,
+  "name": "beautycounterapi",
+  "version": "1.0.0",
+  "description": "beauty counter backend api",
+  "main": "server.js",
+  "author": "vincent",
+  "license": "ISC",
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "better-npm-run dev",
+    "lint": "better-npm-run lint",
+    "prod": "better-npm-run prod",
+    "test": "better-npm-run test",
+    "fix-code": "better-npm-run fix-code",
+    "fix-styles": "better-npm-run fix-styles"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "concurrently --kill-others \"nodemon server.js\" ",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "lint": {
+      "command": "./node_modules/eslint/bin/eslint.js config/ libs/ models/ routes/ --ext .js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "prod": {
+      "command": "node server.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "test": {
+      "command": "./node_modules/mocha/bin/mocha test/*.js",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "fix-code": {
+      "command": "prettier-eslint --write 'src/**/*.{js,jsx}' "
+    },
+    "fix-styles": {
+      "command": "prettier-stylelint --write 'src/**/*.{css,scss}' "
+    }
   },
   "dependencies": {
-    "body-parser": "~1.13.2",
-    "cookie-parser": "~1.3.5",
-    "debug": "~2.2.0",
-    "express": "~4.13.1",
-    "jade": "~1.11.0",
-    "morgan": "~1.6.1",
-    "serve-favicon": "~2.3.0"
+    "debug": "^4.1.0",
+    "koa": "^2.6.2",
+    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-jwt": "^3.5.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "log4js": "^3.0.6",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
+    "shelljs": "^0.8.3",
+    "swagger-jsdoc": "^3.2.5"
+  },
+  "devDependencies": {
+    "better-npm-run": "^0.1.1",
+    "chai": "^4.2.0",
+    "concurrently": "^4.1.0",
+    "mocha": "^5.2.0",
+    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1",
+    "prettier-stylelint": "^0.4.2",
+    "supertest": "^3.3.0"
   }
 }

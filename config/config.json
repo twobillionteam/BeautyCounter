@@ -1,0 +1,11 @@
+{
+  "api": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 3000,
+    "version": 1,
+    "swagger": "true",
+    "prefix": "beautycounter",
+    "cors": "http://localhost:3000,https://localhost:3000"
+  }
+}
