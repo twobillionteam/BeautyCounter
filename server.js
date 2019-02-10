@@ -2,14 +2,27 @@
 
 const Koa = require("koa");
 const logger = require("./logs")("server");
-const bodyParser = require("koa-bodyparser");
+// const bodyParser = require("koa-bodyparser");
+const bodyParser = require("koa-body");
 const routes = require("./routes");
 const middleware = require("./libs/middleware");
 const config = require("./config");
 const cors = require("koa2-cors");
+const path = require("path");
 
 const app = new Koa();
-app.use(bodyParser());
+app.use(
+  bodyParser({
+    multipart: true,
+    formLimit: "5mb",
+    jsonLimit: "5mb",
+    textLimit: "5mb",
+    encoding: "gzip",
+    formidable: {
+      uploadDir: path.join(__dirname, "files")
+    }
+  })
+);
 
 if (config.env === "test" || config.env === "development") {
   app.use(cors());

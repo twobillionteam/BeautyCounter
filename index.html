@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="file" onchange="previewFile()" /><br />
+    <img src="" height="200" alt="Image preview..." />
+  </body>
+  <script>
+    function previewFile() {
+      const preview = document.querySelector("img"); //selects the query named img
+      const file = document.querySelector("input[type=file]").files[0]; //sames as here
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        preview.src = reader.result;
+      };
+
+      if (file) {
+        reader.readAsDataURL(file); //reads the data as a URL
+      } else {
+        preview.src = "";
+      }
+    }
+
+    previewFile(); //calls the function named previewFile()
+
+    function sendForm() {
+      const fd = new FormData();
+      const file = document.querySelector("input[type=file]").files[0];
+      fd.append("file", file);
+      $.ajax({
+        type: "POST",
+        dataType: "JSON",
+        processData: false,
+        contentType: false,
+        data: fd,
+        url: "http://localhost:3000/beautycounter/api/v1/files",
+        success: function(data) {
+          console.log("success:", data);
+        },
+        error: function(err) {
+          console.log("error:", err);
+        }
+      });
+    }
+  </script>
+</html>
